@@ -6,6 +6,7 @@ import io.ktor.routing.*
 import io.ktor.http.*
 import io.ktor.html.*
 import kotlinx.html.*
+//import kotlinx.html.js.*
 import kotlinx.css.*
 import io.ktor.gson.*
 import io.ktor.features.*
@@ -38,14 +39,23 @@ fun Application.module() {
                         // 埋め込みCSS
                     }
                     link { rel = "stylesheet"; type = "text/css"; href = "/styles.css" }
+                    script (type = ScriptType.textJavaScript) {
+                        unsafe {
+                            raw("alert('World!!')")
+                        }
+                    }
                 }
                 body {
                     h1 { +"HTML" }
-                    p { classes = hashSetOf("myclass"); text("HTML-DSL Hello World!!!") }
+                    p { classes = setOf("myclass"); text("HTML-DSL Hello World!!!") }
                     ul {
                         for (n in 1..10) {
                             li { style { color = Color.blue }; text("$n") }
                         }
+                        //onClick = "message('clicked the image')"
+                    }
+                    button (classes = "btn") { text("Test")
+                        //onClickFunction = {}
                     }
                 }
             }
